@@ -10,7 +10,12 @@ $(document).ready(function () {
     $("#CardRechazados").on("click", poneLblRechazados);
     $("#divNuevaSolicitud").on("click", redireccionNuevaSolicitud);
     $("#btnEnviarSolicitud").on("click", enviarSolicitud);
+    $("#btnRegresarAlumno").on("click", regresarAlumnoPrincipal);
 });
+
+function regresarAlumnoPrincipal() {
+    location.href = 'principal_alumno.html';
+}
 
 function poneLblRevisados() {
     $("#lblTipoPeticion").html("Solicitudes revisadas");
