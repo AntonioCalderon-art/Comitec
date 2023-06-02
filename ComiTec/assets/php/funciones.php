@@ -1,10 +1,10 @@
 <?php
 $opcion = $_GET['opcion'];
-$user = $_GET['user'];
-$pass = $_GET['pass'];
 $response;
 
 if($opcion == 1){
+    $user = $_GET['user'];
+    $pass = $_GET['pass'];
     $serverName = "ANTONIOCALDERON\SQL2014";
     $connectionInfo = array( "Database"=>"Comitec", "UID"=>"tec", "PWD"=>"123");
     $conn = sqlsrv_connect( $serverName, $connectionInfo);
@@ -13,7 +13,7 @@ if($opcion == 1){
         die( print_r( sqlsrv_errors(), true));
     }
     
-    $sql = "SELECT  nombre ,correoE_Alumno, contrasenia FROM LoginAlumno as a, Alumno as b WHERE a.correoE_Alumno = '". $user ."'";
+    $sql = "SELECT  NoControl, nombre ,correoE_Alumno, contrasenia FROM LoginAlumno as a, Alumno as b WHERE a.correoE_Alumno = '". $user ."'";
     $stmt = sqlsrv_query( $conn, $sql );
     
     if( $stmt === false) {
@@ -33,7 +33,8 @@ if($opcion == 1){
           if($row['contrasenia'] == $pass){
             $response = array(
                 'mensaje' => true,
-                'usuarioLogueado' => $row['nombre']
+                'usuarioLogueado' => $row['nombre'],
+                'NoControl' => $row['NoControl']
             );
           }else{
             $response = array(
@@ -47,19 +48,153 @@ if($opcion == 1){
 }
 
 if($opcion == 2){
+    $matricula = $_GET['matricula'];
     $serverName = "ANTONIOCALDERON\SQL2014";
     $connectionInfo = array( "Database"=>"Comitec", "UID"=>"tec", "PWD"=>"123");
     $conn = sqlsrv_connect( $serverName, $connectionInfo);
     
-    $sql = "SELECT motivoAcademico from Solicitud where alumno_NoControl = 19170736";
+    $sql = "SELECT solicitudID,motivoAcademico FROM Solicitud where alumno_NoControl = ".$matricula;
     $stmt = sqlsrv_query( $conn, $sql );
     
     while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)) {
-        $response = array(
-            'mensaje' => true,
-            'motivoAcademico' => $row['motivoAcademico'],
-        );
+        $motivoAcademico[] = $row['motivoAcademico'];
+        $solicitudID[] = $row['solicitudID'];
     }
+
+    $response = array(
+        'mensaje' => true,
+        'motivoAcademico' => $motivoAcademico,
+        'solicitudID' => $solicitudID,
+    );
+    
+    sqlsrv_free_stmt( $stmt);
+    echo json_encode($response);
+}
+
+if($opcion == 3){
+    $matricula = $_GET['matricula'];
+    $serverName = "ANTONIOCALDERON\SQL2014";
+    $connectionInfo = array( "Database"=>"Comitec", "UID"=>"tec", "PWD"=>"123");
+    $conn = sqlsrv_connect( $serverName, $connectionInfo);
+    
+    $sql = "SELECT solicitudID,motivoAcademico FROM Solicitud WHERE alumno_NoControl = ".$matricula." AND estatusSolicitudID = 3";
+    $stmt = sqlsrv_query( $conn, $sql );
+    
+    while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)) {
+        $motivoAcademico[] = $row['motivoAcademico'];
+        $solicitudID[] = $row['solicitudID'];
+    }
+
+    $response = array(
+        'mensaje' => true,
+        'motivoAcademico' => $motivoAcademico,
+        'solicitudID' => $solicitudID,
+    );
+    
+    sqlsrv_free_stmt( $stmt);
+    echo json_encode($response);
+}
+
+if($opcion == 4){
+    $matricula = $_GET['matricula'];
+    $serverName = "ANTONIOCALDERON\SQL2014";
+    $connectionInfo = array( "Database"=>"Comitec", "UID"=>"tec", "PWD"=>"123");
+    $conn = sqlsrv_connect( $serverName, $connectionInfo);
+    
+    $sql = "SELECT solicitudID,motivoAcademico FROM Solicitud WHERE alumno_NoControl = ".$matricula." AND estatusSolicitudID = 2";
+    $stmt = sqlsrv_query( $conn, $sql );
+    echo $sql;
+
+    if (sqlsrv_has_rows($stmt)) {
+        while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)) {
+            $motivoAcademico[] = $row['motivoAcademico'];
+            $solicitudID[] = $row['solicitudID'];
+        }
+    } else {
+        $motivoAcademico['motivoAcademico'][0] = 'Vacio';
+        $solicitudID['solicitudID'][0] = 'Vacio';
+    }
+
+    $response = array(
+        'mensaje' => true,
+        'motivoAcademico' => $motivoAcademico,
+        'solicitudID' => $solicitudID,
+    );
+    
+    sqlsrv_free_stmt( $stmt);
+    echo json_encode($response);
+}
+
+if($opcion == 5){
+    $matricula = $_GET['matricula'];
+    $serverName = "ANTONIOCALDERON\SQL2014";
+    $connectionInfo = array( "Database"=>"Comitec", "UID"=>"tec", "PWD"=>"123");
+    $conn = sqlsrv_connect( $serverName, $connectionInfo);
+    
+    $sql = "SELECT solicitudID,motivoAcademico FROM Solicitud WHERE alumno_NoControl = ".$matricula." AND estatusSolicitudID = 1";
+    $stmt = sqlsrv_query( $conn, $sql );
+    
+    if (sqlsrv_has_rows($stmt)) {
+        while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)) {
+            $motivoAcademico[] = $row['motivoAcademico'];
+            $solicitudID[] = $row['solicitudID'];
+        }
+    } else {
+        $motivoAcademico['motivoAcademico'][0] = 'Vacio';
+        $solicitudID['solicitudID'][0] = 'Vacio';
+    }
+
+    $response = array(
+        'mensaje' => true,
+        'motivoAcademico' => $motivoAcademico,
+        'solicitudID' => $solicitudID,
+    );
+    
+    sqlsrv_free_stmt( $stmt);
+    echo json_encode($response);
+}
+
+if($opcion == 6){
+    $idSolicitud = $_GET['idSolicitud'];
+    $serverName = "ANTONIOCALDERON\SQL2014";
+    $connectionInfo = array( "Database"=>"Comitec", "UID"=>"tec", "PWD"=>"123");
+    $conn = sqlsrv_connect( $serverName, $connectionInfo);
+    
+    $sql = "SELECT alumno_NoControl, b.nombre, b.apPaterno, b.apMaterno, b.CorreoAlumno, c.nombreCarrera , b.semestre, a.motivoAcademico, e.nombreStatus
+    from Solicitud as a, Alumno as b, Carrera as c, estatusSolicitud as e
+    WHERE b.NoControl = a.alumno_NoControl and b.carreraID = c.carreraID and a.estatusSolicitudID = e.estatusID AND A.solicitudID=".$idSolicitud;
+    $stmt = sqlsrv_query( $conn, $sql );
+    
+    if (sqlsrv_has_rows($stmt)) {
+        while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)) {
+            $numeroControl[] = $row['alumno_NoControl'];
+            $nombre[] = $row['nombre'].' '.$row['apPaterno'].' '.$row['apMaterno'];
+            $CorreoAlumno[] = $row['CorreoAlumno'];
+            $nombreCarrera[] = $row['nombreCarrera'];
+            $semestre[] = $row['semestre'];
+            $motivoAcademico[] = $row['motivoAcademico'];
+            $nombreStatus[] = $row['nombreStatus'];
+        }
+    } else {
+        $numeroControl['numeroControl'][0] = 'Vacio';
+        $nombre['nombre'][0] = 'Vacio';
+        $CorreoAlumno['CorreoAlumno'][0] = 'Vacio';
+        $nombreCarrera['nombreCarrera'][0] = 'Vacio';
+        $semestre['semestre'][0] = 'Vacio';
+        $motivoAcademico['motivoAcademico'][0] = 'Vacio';
+        $nombreStatus['nombreStatus'][0] = 'Vacio';
+    }
+
+    $response = array(
+        'mensaje' => true,
+        'numeroControl' => $numeroControl,
+        'nombre' => $nombre,
+        'CorreoAlumno' => $CorreoAlumno,
+        'nombreCarrera' => $nombreCarrera,
+        'semestre' => $semestre,
+        'motivoAcademico' => $motivoAcademico,
+        'nombreStatus' => $nombreStatus,
+    );
     
     sqlsrv_free_stmt( $stmt);
     echo json_encode($response);

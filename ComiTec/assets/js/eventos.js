@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    window.usuarioLogueado = "";
+    var usuarioLogueado = "";
+    var numeroControl = "";
     $("#CardRevisados").on("click", poneLblRevisados);
     $("#CardRegresados").on("click", poneLblRegresados);
     $("#CardSinRevisar").on("click", poneLblSinRevisar);
@@ -95,7 +96,8 @@ if(perfil == '1'){
                 // Maneja la respuesta del servidor aquí
                 if(response['mensaje'] == true){
                     usuarioLogueado = response['usuarioLogueado'];
-                    location.href = 'principal_alumno.html'
+                    numeroControl = response['NoControl'];
+                    location.href = 'principal_alumno.html?nombre='+usuarioLogueado+'&numeroControl='+numeroControl;
                 }else{
                     alert("Usuario o contraseña incorrectos");
                 }
