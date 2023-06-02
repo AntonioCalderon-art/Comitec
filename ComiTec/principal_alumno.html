@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" href="assets/css/estilos.css">
     <script src="assets/js/eventos.js"></script>
+    <script src="assets/js/eventos_principall_alumno.js"></script>
 </head>
 
 <body>
@@ -28,7 +29,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="principal_alumno.html"><img src="assets/img/logo.png" width="50" height="50"> ComiTec</a>
             <div>
-                <a class="lblUsuario">Antonio Calderón</a>
+                <a class="lblUsuario" id="lblUsuarioLogueado">Antonio Calderón</a>
                 <button id="btnCerrarSesion" type="button" class="btn btn-danger">Cerrar sesión</button>
             </div>
 
@@ -75,6 +76,9 @@
         </div>
 
         <div class="container text-center">
+            <div id="historialSolicitudes">
+
+            </div>
             <div class="row">
                 <div class="col">
                     <div class="card paddingCard cifras">
