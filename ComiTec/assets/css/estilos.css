@@ -8,6 +8,14 @@
 	background-color: cyan;
 }
 
+.escalaNuevaSolicitud{
+	transition: all 0.3s;
+}
+
+.escalaNuevaSolicitud:hover{
+	transform: scale(1.10);
+}
+
 .paddingCard{
 	margin: 2px;
 }
