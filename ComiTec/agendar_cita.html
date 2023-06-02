@@ -70,10 +70,24 @@
 
                         <div class="row">
                             <div class="col-auto" style="padding-top: 50px;">
-                                <input type="text" style="padding-right: 317px;" class="form-control pr-3"
+                                <label style="color: #5d5a63;">Tipo de solicitud</label>
+                                <select class="form-select">
+                                    <option selected>Seleccione</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                  </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-9" style="padding-top: 20px;">
+                                <input type="text" class="form-control pr-3"
                                     placeholder="Motivo de solicitud">
                             </div>
                         </div>
+
+                        <div id="espacioModal"></div>
                         
                         <div class="row g-2">
                             <div class="col-auto" style="padding-top: 20px; text-align: left;">
@@ -84,7 +98,7 @@
                     </form>
 
                     <div style="margin: 30px;">
-                        <button id="" type="button" class="btn btn-primary"
+                        <button id="btnEnviarSolicitud" type="button" class="btn btn-primary"
                             style="padding-left: 250px; padding-right: 250px;">Enviar solicitud</button>
                     </div>
                 </div>
