@@ -268,16 +268,9 @@ if($opcion == 8){
             'error' => sqlsrv_errors()
         );
     } else {
-        //$sql = "INSERT INTO solicitud(alumno_NoControl, trabajador_Matricula, firmaTrabajador, fechaSolicitud, motivoPersonal, motivoAcademico, estatusSolicitudID, Observaciones) VALUES (?, 1, 0, ?, ?, ?, ?, '')";
-        //$params = array($numControl, $fecha, $motivoPersonal, $motivoAcademico, $estatus);
-        //$stmt = sqlsrv_prepare($conn, $sql, $params);
-        $sql = "INSERT INTO solicitud(alumno_NoControl, trabajador_Matricula, firmaTrabajador, fechaSolicitud, motivoPersonal, motivoAcademico, estatusSolicitudID, Observaciones) VALUES ($numControl, 1, 0, $fecha, $motivoPersonal, $motivoAcademico, $estatus, '')";
-        try {
-            $rowCount = $conn->exec($sql);
-        } catch (PDOException $e) {
-            echo "Error al ejecutar la sentencia: " . $e->getMessage();
-        }
-        $stmt = sqlsrv_query($conn, $sql);
+        $sql = "INSERT INTO solicitud(alumno_NoControl, trabajador_Matricula, firmaTrabajador, fechaSolicitud, motivoPersonal, motivoAcademico, estatusSolicitudID, Observaciones) VALUES (?, 1, 0, ?, ?, ?, ?, '')";
+        $params = array($numControl, $fecha, $motivoPersonal, $motivoAcademico, $estatus);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
 
         if ($stmt === false) {
             $response = array(
@@ -285,24 +278,20 @@ if($opcion == 8){
                 'error' => sqlsrv_errors()
             );
         } else {
-            // $result = sqlsrv_execute($stmt);
+            $result = sqlsrv_execute($stmt);
 
-            $response = array(
-                'mensaje' => true
-            );
-
-            // if ($result === false) {
-            //     $response = array(
-            //         'mensaje' => false,
-            //         'error' => sqlsrv_errors()
-            //     );
-            // } else {
-            //     $response = array(
-            //         'mensaje' => true
-            //     );
-            // }
+            if ($result === false) {
+                $response = array(
+                    'mensaje' => false,
+                    'error' => sqlsrv_errors()
+                );
+            } else {
+                $response = array(
+                    'mensaje' => true
+                );
+            }
         }
-        
+
         sqlsrv_free_stmt($stmt);
     }
 
