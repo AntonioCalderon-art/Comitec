@@ -79,8 +79,9 @@ function iniciarSesion() {
 
     if (perfil == "1") {
         consultarUsuario('1');
+        location.href = 'Menu_Acceso_Alumno';
     } else if (perfil == "2") {
-        location.href = 'index.html';
+        location.href = 'Menu_Acceso_Docente.html';
     } else {
         alert("Elige un perfil de usuario válido");
     }
@@ -96,7 +97,7 @@ function cerrarSesion() {
 
 function enviarSolicitud() {    
     alert("Solicitud enviada con exito");
-    location.href = 'principal_alumno.html';
+    location.href = 'Menu_Acceso_Alumno.html';
 }
 
 function consultarUsuario(perfil) {
