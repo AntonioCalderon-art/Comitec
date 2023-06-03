@@ -14,7 +14,7 @@ if($opcion == 1){
         die( print_r( sqlsrv_errors(), true));
     }
     
-    $sql = "SELECT  NoControl, nombre ,correoE_Alumno, contrasenia FROM LoginAlumno as a, Alumno as b WHERE a.correoE_Alumno = '". $user ."'";
+    $sql = "SELECT  NoControl, nombre ,correoE_Alumno, contrasenia FROM LoginAlumno as a, Alumno as b WHERE a.correoE_Alumno = b.CorreoAlumno and a.correoE_Alumno = '". $user ."'";
     $stmt = sqlsrv_query( $conn, $sql );
     
     if( !$stmt) {

@@ -3,7 +3,7 @@
 session_start();
 
 if (isset($_SESSION['sesion_iniciada'])) {
-	header('Location: ./index.php');
+	header('Location: ./principal_alumno.php');
 }
 
 ?>

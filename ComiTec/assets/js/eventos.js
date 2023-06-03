@@ -57,7 +57,7 @@ function iniciarSesion() {
 
     if (perfil == "1") {
         consultarUsuario('1');
-        location.href = 'Menu_Acceso_Alumno.html';
+        location.href = 'principal_alumno.php';
     } else if (perfil == "2") {
         location.href = 'index.php';
     } else {

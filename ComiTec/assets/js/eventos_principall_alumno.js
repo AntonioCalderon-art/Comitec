@@ -9,9 +9,9 @@ $(document).ready(function () {
     consultaSolicitudesAlumno(noControl);
     $("#lblUsuarioLogueado").html(nombre);
     $("#btnCerrarSesion").on("click", cerrarSesion);
-    $("#CardAutorizados").on("click", poneLblAutorizados);
-    $("#CardPendientes").on("click", poneLblPendientes);
-    $("#CardRechazados").on("click", poneLblRechazados);
+    $("#CardAutorizados").on("click", poneLblAutorizados(noControl));
+    $("#CardPendientes").on("click", poneLblPendientes(noControl));
+    $("#CardRechazados").on("click", poneLblRechazados(noControl));
     $("#divNuevaSolicitud").on("click", redireccionNuevaSolicitud);
     $("#btnEnviarSolicitud").on("click", enviarSolicitud);
     $("#btnRegresarAlumno").on("click", regresarAlumnoPrincipal);
@@ -25,19 +25,19 @@ function regresarAlumnoPrincipal() {
     location.href = 'principal_alumno.html';
 }
 
-function poneLblAutorizados() {
+function poneLblAutorizados(matricula) {
     $("#lblTipoSolicitud").html("Solicitudes autorizadas");
-    consultaSolicitudesAutorizadasAlumno(19170736);
+    consultaSolicitudesAutorizadasAlumno(matricula);
 }
 
-function poneLblPendientes() {
+function poneLblPendientes(matricula) {
     $("#lblTipoSolicitud").html("Solicitudes pendientes");
-    consultaSolicitudesPendientesAlumno(19170736);
+    consultaSolicitudesPendientesAlumno(matricula);
 }
 
-function poneLblRechazados() {
+function poneLblRechazados(matricula) {
     $("#lblTipoSolicitud").html("Solicitudes rechazadas");
-    consultaSolicitudesRechazadasAlumno(19170736);
+    consultaSolicitudesRechazadasAlumno(matricula);
 }
 
 function redireccionNuevaSolicitud() {
