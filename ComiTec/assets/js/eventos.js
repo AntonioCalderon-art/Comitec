@@ -13,10 +13,34 @@ $(document).ready(function () {
     $("#divNuevaSolicitud").on("click", redireccionNuevaSolicitud);
     $("#btnEnviarSolicitud").on("click", enviarSolicitud);
     $("#btnRegresarAlumno").on("click", regresarAlumnoPrincipal);
+    $("#btnPerfil_Docente").on("click", botonPerfil_Docente);
+    $("#btnSolicitudes_Docente").on("click", botonSolicitudes_Docentes);
+    $("#btnCalendario").on("click", botonCalendario);
+    $("#btnPerfil_Alumno").on("click", botonPerfil_Alumno);
+    $("#btnSolicitudes_Alumno").on("click", botonSolicitudes_Alumno);
+    $("#btnSolicitud_Crear").on("click", botonSolicitud_Crear);
 });
 
 function regresarAlumnoPrincipal() {
     location.href = 'principal_alumno.html';
+}
+function botonPerfil_Docente() {
+    location.href = 'Perfil_Docente.html';
+}
+function botonSolicitudes_Docentes() {
+    location.href = 'index.html';
+}
+function botonCalendario() {
+    location.href = 'calendario.html';
+}
+function botonPerfil_Alumno() {
+    location.href = 'Perfil_Alumno.html';
+}
+function botonSolicitudes_Alumno() {
+    location.href = 'principal_alumno.html';
+}
+function botonSolicitud_Crear() {
+    location.href = 'agendar_cita.html';
 }
 
 function poneLblRevisados() {
