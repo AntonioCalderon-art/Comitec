@@ -74,14 +74,6 @@ if (isset($_SESSION['sesion_iniciada']) && $_SESSION['sesion_iniciada']) {
                 </div>
             </div>
         </div>
-        
-        <div style="padding-left: 3%;">
-            <div class="escalaNuevaSolicitud" id="divNuevaSolicitud">
-                <img src="assets/img/solicitud_nueva.png" width="70px">
-                <label style="text-align: center;">Nueva solicitud</label>
-            </div>
-        </div>
-
         <div style="padding-top: 20px;">
             <p id="lblTipoSolicitud" style="text-align: left;" class="fs-2">Historial de solicitudes</p>
         </div>

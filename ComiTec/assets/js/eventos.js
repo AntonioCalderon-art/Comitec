@@ -13,10 +13,14 @@ $(document).ready(function () {
     $("#divNuevaSolicitud").on("click", redireccionNuevaSolicitud);
     $("#btnEnviarSolicitud").on("click", enviarSolicitud);
     $("#btnRegresarAlumno").on("click", regresarAlumnoPrincipal);
+    $("#btnSolicitud_Crear").on("click", botonSolicitud_Crear);
 });
 
 function regresarAlumnoPrincipal() {
     location.href = 'principal_alumno.php';
+}
+function botonSolicitud_Crear() {
+    location.href = 'agendar_cita.html';
 }
 
 function poneLblRevisados() {
@@ -53,6 +57,7 @@ function iniciarSesion() {
 
     if (perfil == "1") {
         consultarUsuario('1');
+        location.href = 'Menu_Acceso_Alumno.html';
     } else if (perfil == "2") {
         location.href = 'index.php';
     } else {
