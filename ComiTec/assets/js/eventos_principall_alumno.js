@@ -1,10 +1,13 @@
 $(document).ready(function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const nombre = urlParams.get('nombre');
-    const numeroControl = urlParams.get('numeroControl');
+    //const urlParams = new URLSearchParams(window.location.search);
+    //const nombre = urlParams.get('nombre');
+    //const numeroControl = urlParams.get('numeroControl');
 
-    consultaSolicitudesAlumno(19170736);
-    $("#lblUsuarioLogueado").html(usuarioLogueado);
+    var noControl = $('#txtNoControl').val();
+    var nombre = $('#lblUsuarioLogueado').text();
+    debugger;
+    consultaSolicitudesAlumno(noControl);
+    $("#lblUsuarioLogueado").html(nombre);
     $("#btnCerrarSesion").on("click", cerrarSesion);
     $("#CardAutorizados").on("click", poneLblAutorizados);
     $("#CardPendientes").on("click", poneLblPendientes);
@@ -15,7 +18,7 @@ $(document).ready(function () {
 });
 
 function pantallaSolicitudAlumno(idSolicitud) {
-    location.href = 'solicitud_alumno_llena.html?idSolicitud='+idSolicitud;
+    location.href = 'solicitud_alumno_llena.html?idSolicitud=' + idSolicitud;
 }
 
 function regresarAlumnoPrincipal() {
@@ -41,8 +44,38 @@ function redireccionNuevaSolicitud() {
     location.href = 'agendar_cita.html';
 }
 
+// function cerrarSesion() {
+//     location.href = 'login.html';
+// }
+
 function cerrarSesion() {
-    location.href = 'login.html';
+    var datos = {
+        opcion: "cerrarSesion",
+    };
+
+    $.ajax({
+        url: 'assets/php/funciones.php',
+        type: 'GET',
+        data: datos, // Parámetros a enviar al archivo PHP
+        dataType: 'json',
+
+        success: function (response) {
+            console.log(response)
+            // Maneja la respuesta del servidor aquí
+            if (response['mensaje'] == true) {
+                location.href = 'login.php';
+            } else {
+                alert("Error al cerrar sesión");
+            }
+
+        },
+
+        error: function (xhr, status, error) {
+            // Maneja los errores aquí
+            console.log(xhr.responseText);
+        }
+    });
+
 }
 
 function consultaSolicitudesAlumno(matricula) {
@@ -59,7 +92,7 @@ function consultaSolicitudesAlumno(matricula) {
 
         success: function (response) {
             // Maneja la respuesta del servidor aquí
-           // response['motivoAcademico']
+            // response['motivoAcademico']
 
             var motivoSolicitud = response['motivoAcademico'];
             var idSolicitud = response['solicitudID'];
@@ -72,14 +105,14 @@ function consultaSolicitudesAlumno(matricula) {
                 console.log(idSolicitud[i]);
 
                 historialSolicitudes = historialSolicitudes + '<div class="row">'
-                + '<div class="col">'
-                + '<div id="cardSolicitudAlumno'+i+'" onclick="pantallaSolicitudAlumno('+idSolicitud[i]+')" class="card paddingCard cifras">'
-                + '<div class="card-body leftCard">'
-                + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
-                + '</div>'
-                + '</div>'
-                + '</div>'
-                + '</div>';
+                    + '<div class="col">'
+                    + '<div id="cardSolicitudAlumno' + i + '" onclick="pantallaSolicitudAlumno(' + idSolicitud[i] + ')" class="card paddingCard cifras">'
+                    + '<div class="card-body leftCard">'
+                    + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>';
             }
             $("#historialSolicitudes").html(historialSolicitudes);
         },
@@ -105,24 +138,24 @@ function consultaSolicitudesAutorizadasAlumno(matricula) {
 
         success: function (response) {
             // Maneja la respuesta del servidor aquí
-           // response['motivoAcademico']
+            // response['motivoAcademico']
 
             var motivoSolicitud = response['motivoAcademico'];
             console.log(motivoSolicitud[0]);
             console.log(motivoSolicitud[1]);
-        
+
             // Recorrer el arreglo en JavaScript
             var historialSolicitudes = "";
             for (var i = 0; i < motivoSolicitud.length; i++) {
                 historialSolicitudes = historialSolicitudes + '<div class="row">'
-                + '<div id="cardSolicitudAlumno" class="col">'
-                + '<div  class="card paddingCard cifras">'
-                + '<div class="card-body leftCard">'
-                + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
-                + '</div>'
-                + '</div>'
-                + '</div>'
-                + '</div>';
+                    + '<div id="cardSolicitudAlumno" class="col">'
+                    + '<div  class="card paddingCard cifras">'
+                    + '<div class="card-body leftCard">'
+                    + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>';
             }
             $("#historialSolicitudes").html(historialSolicitudes);
         },
@@ -148,24 +181,24 @@ function consultaSolicitudesRechazadasAlumno(matricula) {
 
         success: function (response) {
             // Maneja la respuesta del servidor aquí
-           // response['motivoAcademico']
+            // response['motivoAcademico']
 
             var motivoSolicitud = response['motivoAcademico'];
             console.log(motivoSolicitud[0]);
             console.log(motivoSolicitud[1]);
-        
+
             // Recorrer el arreglo en JavaScript
             var historialSolicitudes = "";
             for (var i = 0; i < motivoSolicitud.length; i++) {
                 historialSolicitudes = historialSolicitudes + '<div class="row">'
-                + '<div class="col">'
-                + '<div id="cardSolicitudAlumno" class="card paddingCard cifras">'
-                + '<div class="card-body leftCard">'
-                + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
-                + '</div>'
-                + '</div>'
-                + '</div>'
-                + '</div>';
+                    + '<div class="col">'
+                    + '<div id="cardSolicitudAlumno" class="card paddingCard cifras">'
+                    + '<div class="card-body leftCard">'
+                    + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>';
             }
             $("#historialSolicitudes").html(historialSolicitudes);
         },
@@ -191,24 +224,24 @@ function consultaSolicitudesPendientesAlumno(matricula) {
 
         success: function (response) {
             // Maneja la respuesta del servidor aquí
-           // response['motivoAcademico']
+            // response['motivoAcademico']
 
             var motivoSolicitud = response['motivoAcademico'];
             console.log(motivoSolicitud[0]);
             console.log(motivoSolicitud[1]);
-        
+
             // Recorrer el arreglo en JavaScript
             var historialSolicitudes = "";
             for (var i = 0; i < motivoSolicitud.length; i++) {
                 historialSolicitudes = historialSolicitudes + '<div class="row">'
-                + '<div class="col">'
-                + '<div id="cardSolicitudAlumno" class="card paddingCard cifras">'
-                + '<div class="card-body leftCard">'
-                + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
-                + '</div>'
-                + '</div>'
-                + '</div>'
-                + '</div>';
+                    + '<div class="col">'
+                    + '<div id="cardSolicitudAlumno" class="card paddingCard cifras">'
+                    + '<div class="card-body leftCard">'
+                    + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>';
             }
             $("#historialSolicitudes").html(historialSolicitudes);
         },

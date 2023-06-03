@@ -16,7 +16,7 @@ $(document).ready(function () {
 });
 
 function regresarAlumnoPrincipal() {
-    location.href = 'principal_alumno.html';
+    location.href = 'principal_alumno.php';
 }
 
 function poneLblRevisados() {
@@ -49,65 +49,93 @@ function poneLblRechazados() {
 
 
 function iniciarSesion() {
-    
-
     var perfil = $("#cboPerfil").val();
 
     if (perfil == "1") {
         consultarUsuario('1');
     } else if (perfil == "2") {
-        location.href = 'index.html';
+        location.href = 'index.php';
     } else {
         alert("Elige un perfil de usuario válido");
     }
 }
 
 function redireccionNuevaSolicitud() {
-    location.href = 'agendar_cita.html';
+    location.href = 'agendar_cita.php';
 }
+
+// function cerrarSesion() {
+//     location.href = 'login.php';
+// }
 
 function cerrarSesion() {
-    location.href = 'login.html';
+    var datos = {
+        opcion: "cerrarSesion",
+    };
+
+    $.ajax({
+        url: 'assets/php/funciones.php',
+        type: 'GET',
+        data: datos, // Parámetros a enviar al archivo PHP
+        dataType: 'json',
+
+        success: function (response) {
+            console.log(response)
+            // Maneja la respuesta del servidor aquí
+            if (response['mensaje'] == true) {
+                location.href = 'login.php';
+            } else {
+                alert("Error al cerrar sesión");
+            }
+
+        },
+
+        error: function (xhr, status, error) {
+            // Maneja los errores aquí
+            console.log(xhr.responseText);
+        }
+    });
+
 }
 
-function enviarSolicitud() {    
+function enviarSolicitud() {
     alert("Solicitud enviada con exito");
-    location.href = 'principal_alumno.html';
+    location.href = 'principal_alumno.php';
 }
 
 function consultarUsuario(perfil) {
-if(perfil == '1'){
-    var user = $("#txtCorreo").val();
-    var pass = $("#txtContrasenia").val();
-    
+    if (perfil == '1') {
+        var user = $("#txtCorreo").val();
+        var pass = $("#txtContrasenia").val();
+
         var datos = {
             opcion: '1',
             user: user,
             pass: pass
         };
-    
+
         $.ajax({
             url: 'assets/php/funciones.php',
             type: 'GET',
             data: datos, // Parámetros a enviar al archivo PHP
             dataType: 'json',
-    
+
             success: function (response) {
                 // Maneja la respuesta del servidor aquí
-                if(response['mensaje'] == true){
+                if (response['mensaje'] == true) {
                     usuarioLogueado = response['usuarioLogueado'];
                     numeroControl = response['NoControl'];
-                    location.href = 'principal_alumno.html?nombre='+usuarioLogueado+'&numeroControl='+numeroControl;
-                }else{
+                    location.href = 'principal_alumno.php?nombre=' + usuarioLogueado + '&numeroControl=' + numeroControl;
+                } else {
                     alert("Usuario o contraseña incorrectos");
                 }
-                
+
             },
-    
+
             error: function (xhr, status, error) {
                 // Maneja los errores aquí
                 console.log(xhr.responseText);
             }
         });
-}
+    }
 }

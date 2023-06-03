@@ -1,4 +1,5 @@
 <?php
+session_start();
 $opcion = $_GET['opcion'];
 $response;
 
@@ -9,14 +10,14 @@ if($opcion == 1){
     $connectionInfo = array( "Database"=>"Comitec", "UID"=>"tec", "PWD"=>"123");
     $conn = sqlsrv_connect( $serverName, $connectionInfo);
     
-    if( $conn === false ) {
+    if( !$conn ) {
         die( print_r( sqlsrv_errors(), true));
     }
     
     $sql = "SELECT  NoControl, nombre ,correoE_Alumno, contrasenia FROM LoginAlumno as a, Alumno as b WHERE a.correoE_Alumno = '". $user ."'";
     $stmt = sqlsrv_query( $conn, $sql );
     
-    if( $stmt === false) {
+    if( !$stmt) {
         die( print_r( sqlsrv_errors(), true) );
     }
     
@@ -27,7 +28,7 @@ if($opcion == 1){
             'mensaje' => false
         );
     }
-    
+    $responese=array();
     while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)) {
           //echo $row['NoControl'].", ".$row['nombre']."<br />";
           if($row['contrasenia'] == $pass){
@@ -36,12 +37,18 @@ if($opcion == 1){
                 'usuarioLogueado' => $row['nombre'],
                 'NoControl' => $row['NoControl']
             );
+
+            $_SESSION['sesion_iniciada'] = true; //asignarle null no causará error?
+            $_SESSION['nombre']       = $row['nombre'];
+            $_SESSION['NoControl']    = $row['NoControl'];
+
           }else{
             $response = array(
                 'mensaje' => false
             );
           }
     }
+
     
     sqlsrv_free_stmt( $stmt);
     echo json_encode($response);
@@ -197,6 +204,15 @@ if($opcion == 6){
     );
     
     sqlsrv_free_stmt( $stmt);
+    echo json_encode($response);
+}
+if($opcion == "cerrarSesion"){
+    session_destroy();
+
+    $response = array(
+        'mensaje' => true,
+    );
+    
     echo json_encode($response);
 }
 ?>

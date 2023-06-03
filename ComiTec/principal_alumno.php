@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if (isset($_SESSION['sesion_iniciada']) && $_SESSION['sesion_iniciada']) {
+    $nombre =  $_SESSION['nombre'];
+    $NoControl    =  $_SESSION['NoControl'];
+} else {
+    session_destroy();
+    header('Location:  ./index.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -25,11 +38,12 @@
 </head>
 
 <body>
+    <input type="hidden" id="txtNoControl" value="<?php echo $NoControl ?>">
     <nav class="navbar backgroundNav" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="principal_alumno.html"><img src="assets/img/logo.png" width="50" height="50"> ComiTec</a>
             <div>
-                <a class="lblUsuario" id="lblUsuarioLogueado"></a>
+                <a class="lblUsuario" id="lblUsuarioLogueado"><?php echo $nombre ?></a>
                 <button id="btnCerrarSesion" type="button" class="btn btn-danger">Cerrar sesión</button>
             </div>
 

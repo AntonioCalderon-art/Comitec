@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if (isset($_SESSION['sesion_iniciada']) && $_SESSION['sesion_iniciada']) {
+    $nombre =  $_SESSION['nombre'];
+    $NoControl =  $_SESSION['NoControl'];
+} else {
+    session_destroy();
+    header('Location:  ./index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -21,16 +33,16 @@
 
     <link rel="stylesheet" href="assets/css/estilos.css">
     <script src="assets/js/eventos.js"></script>
-    <script src="assets/js/eventos_solicitud_alumno.js"></script>
 </head>
 
 <body>
+    <input type="hiden" id="txtNoControl" value="<?php echo $NoControl ?>">
     <nav class="navbar backgroundNav" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="assets/img/logo.png" width="50" height="50"> ComiTec</a>
             <div>
-                <a class="lblUsuario"></a>
-                <button type="button" id="btnCerrarSesion" class="btn btn-danger">Cerrar sesión</button>
+                <a class="lblUsuario" id="txtNombre"><?php echo $nombre ?></a>
+                <button type="button" class="btn btn-danger">Cerrar sesión</button>
             </div>
 
         </div>
@@ -46,11 +58,6 @@
 
                 <div class="container text-center">
                     <div class="col loginCentro"  style="max-height: 500px;">
-
-                        <div style="text-align: left; padding-top: 30px">
-                            <button id="btnRegresarAlumnoPrincipal" style="text-align: left;" type="button" class="btn btn-danger">Regresar</button>
-                        </div>
-
                         <div class="card shadow-lg p-3 bg-body-tertiary rounded" style="width: 600px; ">
                             <div class="card-body ">
                                 <h5 class="card-title">Solicitud para comité</h5>
@@ -58,30 +65,39 @@
                                 <form>
                                     <div class="row g-3">
                                         <div class="col-auto" style="padding-top: 20px;">
-                                            <input disabled type="text" class="form-control" id="txtNumControl" placeholder="Número de control">
+                                            <input disabled type="text" class="form-control" placeholder="Número de control">
                                         </div>
                                         <div class="col-auto" style="padding-top: 20px;">
-                                            <input disabled type="text" style="padding-right: 317px;" id="txtNombreCompleto" class="form-control pr-3"
+                                            <input disabled type="text" style="padding-right: 317px;" class="form-control pr-3"
                                                 placeholder="Nombre completo">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-group" style="padding-top: 20px;">
-                                            <input disabled type="email" class="form-control" id="txtCorreo" placeholder="Correo institucional">
+                                            <input disabled type="text" class="form-control" placeholder="Correo institucional">
                                         </div>
                                     </div>
             
                                     <div class="row g-2">
                                         <div class="col-auto" style="padding-top: 20px;">
-                                            <input disabled type="text" style="padding-right: 200px;" class="form-control pr-3" id="txtCarrera" placeholder="Carrera">
+                                            <input disabled type="text" style="padding-right: 200px;" class="form-control pr-3" placeholder="Carrera">
                                         </div>
                                         <div class="col-auto" style="padding-top: 20px; text-align: left;">
-                                            <input disabled type="text" style="width: 50%;" maxlength="2" class="form-control pr-3" id="txtSemestre" placeholder="Semestre">
+                                            <input disabled type="text" style="width: 50%;" maxlength="2" class="form-control pr-3" placeholder="Semestre">
                                         </div>
-                                        <div class="row">
-                                            <div class="input-group" style="padding-top: 20px;">
-                                                <input disabled type="text" class="form-control" id="txtMotivo" placeholder="Motivo">
-                                            </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-auto" style="padding-top: 20px;">
+                                            <input disabled type="text" style="padding-right: 317px;" class="form-control pr-3"
+                                                placeholder="Tipo de solicitud">
+                                        </div>
+                                    </div>
+            
+                                    <div class="row">
+                                        <div class="col-auto" style="padding-top: 20px;">
+                                            <input disabled type="text" style="padding-right: 317px;" class="form-control pr-3"
+                                                placeholder="Motivo de solicitud">
                                         </div>
                                     </div>
                                     
@@ -95,13 +111,13 @@
                                       </div>
 
                                       <div class="col-auto" style="padding-top: 20px;">
-                                        <textarea disabled name="" id="" cols="300" rows="10" style="width: 500px;" placeholder="Comentarios..."></textarea>
+                                        <textarea name="" id="" cols="300" rows="10" style="width: 300px;" placeholder="Comentarios..."></textarea>
                                     </div>
                                 </form>
             
                                 <div style="margin: 30px;">
-                                    <input disabled type="text" id="txtEstatus" style="padding-right: 317px;" class="form-control pr-3"
-                                    placeholder="Estatus: Autorizada">
+                                    <button type="button" class="btn btn-success">Autorizar</button>
+                                    <button type="button" class="btn btn-danger">Rechazar</button>
                                 </div>
                             </div>
                         </div>
