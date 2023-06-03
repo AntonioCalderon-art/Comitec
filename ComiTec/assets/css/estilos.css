@@ -45,3 +45,8 @@
 .loginCentro{
 	text-align: -webkit-center;
 }
+.menu{
+	display:flex;
+	justify-content:space-around;
+	background-color:transparent;
+}
