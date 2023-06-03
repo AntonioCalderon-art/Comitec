@@ -33,10 +33,11 @@ if (isset($_SESSION['sesion_iniciada']) && $_SESSION['sesion_iniciada']) {
 
     <link rel="stylesheet" href="assets/css/estilos.css">
     <script src="assets/js/eventos.js"></script>
+    <script src="assets/js/eventos_autoriza_solicitud.js"></script>
 </head>
 
 <body>
-    <input type="hiden" id="txtNoControl" value="<?php echo $NoControl ?>">
+    <input type="hidden" id="txtNoControl" value="<?php echo $NoControl ?>">
     <nav class="navbar backgroundNav" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="assets/img/logo.png" width="50" height="50"> ComiTec</a>
@@ -58,6 +59,11 @@ if (isset($_SESSION['sesion_iniciada']) && $_SESSION['sesion_iniciada']) {
 
                 <div class="container text-center">
                     <div class="col loginCentro"  style="max-height: 500px;">
+
+                    <div style="text-align: left; padding-top: 30px">
+                        <button id="btnRegresarAdminPrincipal" style="text-align: left;" type="button" class="btn btn-danger">Regresar</button>
+                    </div>
+
                         <div class="card shadow-lg p-3 bg-body-tertiary rounded" style="width: 600px; ">
                             <div class="card-body ">
                                 <h5 class="card-title">Solicitud para comité</h5>
@@ -65,38 +71,31 @@ if (isset($_SESSION['sesion_iniciada']) && $_SESSION['sesion_iniciada']) {
                                 <form>
                                     <div class="row g-3">
                                         <div class="col-auto" style="padding-top: 20px;">
-                                            <input disabled type="text" class="form-control" placeholder="Número de control">
+                                            <input disabled type="text" id="txtNumControl" class="form-control" placeholder="Número de control">
                                         </div>
                                         <div class="col-auto" style="padding-top: 20px;">
-                                            <input disabled type="text" style="padding-right: 317px;" class="form-control pr-3"
+                                            <input disabled id="txtNombreCompleto" type="text" style="padding-right: 317px;" class="form-control pr-3"
                                                 placeholder="Nombre completo">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-group" style="padding-top: 20px;">
-                                            <input disabled type="text" class="form-control" placeholder="Correo institucional">
+                                            <input disabled id="txtCorreo" type="text" class="form-control" placeholder="Correo institucional">
                                         </div>
                                     </div>
             
                                     <div class="row g-2">
                                         <div class="col-auto" style="padding-top: 20px;">
-                                            <input disabled type="text" style="padding-right: 200px;" class="form-control pr-3" placeholder="Carrera">
+                                            <input disabled type="text" id="txtCarrera" style="padding-right: 200px;" class="form-control pr-3" placeholder="Carrera">
                                         </div>
                                         <div class="col-auto" style="padding-top: 20px; text-align: left;">
-                                            <input disabled type="text" style="width: 50%;" maxlength="2" class="form-control pr-3" placeholder="Semestre">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-auto" style="padding-top: 20px;">
-                                            <input disabled type="text" style="padding-right: 317px;" class="form-control pr-3"
-                                                placeholder="Tipo de solicitud">
+                                            <input disabled type="text" id="txtSemestre" style="width: 50%;" maxlength="2" class="form-control pr-3" placeholder="Semestre">
                                         </div>
                                     </div>
             
                                     <div class="row">
                                         <div class="col-auto" style="padding-top: 20px;">
-                                            <input disabled type="text" style="padding-right: 317px;" class="form-control pr-3"
+                                            <input disabled id="txtMotivo" type="text" style="padding-right: 317px;" class="form-control pr-3"
                                                 placeholder="Motivo de solicitud">
                                         </div>
                                     </div>
@@ -116,8 +115,12 @@ if (isset($_SESSION['sesion_iniciada']) && $_SESSION['sesion_iniciada']) {
                                 </form>
             
                                 <div style="margin: 30px;">
-                                    <button type="button" class="btn btn-success">Autorizar</button>
-                                    <button type="button" class="btn btn-danger">Rechazar</button>
+                                    <button type="button" id="btnAutorizar" class="btn btn-success">Autorizar</button>
+                                    <button type="button" id="btnRechazar" class="btn btn-danger">Rechazar</button>
+                                </div>
+                                <div class="col-auto" style="padding-top: 20px;">
+                                    <input disabled id="txtEstatus" type="text" style="padding-right: 317px;" class="form-control pr-3"
+                                        placeholder="Estatus">
                                 </div>
                             </div>
                         </div>

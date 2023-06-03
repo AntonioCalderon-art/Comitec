@@ -59,6 +59,7 @@ function iniciarSesion() {
         consultarUsuario('1');
         location.href = 'principal_alumno.php';
     } else if (perfil == "2") {
+        consultarUsuario('2');
         location.href = 'index.php';
     } else {
         alert("Elige un perfil de usuario válido");
@@ -142,5 +143,38 @@ function consultarUsuario(perfil) {
                 console.log(xhr.responseText);
             }
         });
+    }else{
+        var user = $("#txtCorreo").val();
+        var pass = $("#txtContrasenia").val();
+
+        var datos = {
+            opcion: '9',
+            user: user,
+            pass: pass
+        };
+
+        $.ajax({
+            url: 'assets/php/funciones.php',
+            type: 'GET',
+            data: datos, // Parámetros a enviar al archivo PHP
+            dataType: 'json',
+
+            success: function (response) {
+                // Maneja la respuesta del servidor aquí
+                if (response['mensaje'] == true) {
+                    usuarioLogueado = response['usuarioLogueado'];
+                    numeroControl = response['NoControl'];
+                    location.href = 'index.php?nombre=' + usuarioLogueado + '&numeroControl=' + numeroControl;
+                } else {
+                    alert("Usuario o contraseña incorrectos");
+                }
+
+            },
+
+            error: function (xhr, status, error) {
+                // Maneja los errores aquí
+                console.log(xhr.responseText);
+            }
+        }); 
     }
 }

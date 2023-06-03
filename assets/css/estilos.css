@@ -1,0 +1,52 @@
+.cifras{
+	transition: all 0.3s;
+	background-color: rgb(255, 255, 255);
+}
+
+.cifras:hover{
+	transform: scale(1.10);
+	background-color: cyan;
+}
+
+.escalaNuevaSolicitud{
+	transition: all 0.3s;
+}
+
+.escalaNuevaSolicitud:hover{
+	transform: scale(1.10);
+}
+
+.paddingCard{
+	margin: 2px;
+}
+
+.leftCard{
+	text-align: left;
+}
+
+.backgroundNav{
+	background-color: #1b386b;
+}
+
+.lblUsuario{
+	color: white; padding-right: 10px;
+}
+
+.sizeCard{
+	width: 15rem; 
+	margin: 10px;
+}
+
+.sizeLogin{
+	width: 450px; 
+	margin: 50px;
+}
+
+.loginCentro{
+	text-align: -webkit-center;
+}
+.menu{
+	display:flex;
+	justify-content:space-around;
+	background-color:transparent;
+}

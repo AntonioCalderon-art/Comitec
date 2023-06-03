@@ -1,7 +1,7 @@
 $(document).ready(function () {
+    recuperarInformacionSolicitud();
     $("#btnRegresarAlumnoPrincipal").on("click", regresarAlumnoPrincipal);
-    $("#btnEnviarSolicitud").on("click", prepararSolicitudEnviar);
-    recuperarInformacionSolicitud()
+    $("#btnEnviarSolicitud").on("click", prepararSolicitudEnviar);    
 });
 
 function regresarAlumnoPrincipal() {
@@ -14,7 +14,7 @@ function recuperarInformacionSolicitud() {
 }
 
 function prepararSolicitudEnviar() {
-    enviarSolicitud()
+    enviarSolicitud();
 }
 
 function enviarSolicitud() {

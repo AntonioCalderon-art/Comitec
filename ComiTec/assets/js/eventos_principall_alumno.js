@@ -134,17 +134,15 @@ function consultaSolicitudesAutorizadasAlumno(matricula) {
         dataType: 'json',
 
         success: function (response) {
-            // Maneja la respuesta del servidor aquí
-            // response['motivoAcademico']
-
             var motivoSolicitud = response['motivoAcademico'];
-
+            var idSolicitud = response['solicitudID'];
             // Recorrer el arreglo en JavaScript
             var historialSolicitudes = "";
             for (var i = 0; i < motivoSolicitud.length; i++) {
+
                 historialSolicitudes = historialSolicitudes + '<div class="row">'
-                    + '<div id="cardSolicitudAlumno" class="col">'
-                    + '<div  class="card paddingCard cifras">'
+                    + '<div class="col">'
+                    + '<div id="cardSolicitudAlumno' + i + '" onclick="pantallaSolicitudAlumno(' + idSolicitud[i] + ')" class="card paddingCard cifras">'
                     + '<div class="card-body leftCard">'
                     + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
                     + '</div>'
@@ -175,17 +173,15 @@ function consultaSolicitudesRechazadasAlumno(matricula) {
         dataType: 'json',
 
         success: function (response) {
-            // Maneja la respuesta del servidor aquí
-            // response['motivoAcademico']
-
             var motivoSolicitud = response['motivoAcademico'];
-
+            var idSolicitud = response['solicitudID'];
             // Recorrer el arreglo en JavaScript
             var historialSolicitudes = "";
             for (var i = 0; i < motivoSolicitud.length; i++) {
+
                 historialSolicitudes = historialSolicitudes + '<div class="row">'
                     + '<div class="col">'
-                    + '<div id="cardSolicitudAlumno" class="card paddingCard cifras">'
+                    + '<div id="cardSolicitudAlumno' + i + '" onclick="pantallaSolicitudAlumno(' + idSolicitud[i] + ')" class="card paddingCard cifras">'
                     + '<div class="card-body leftCard">'
                     + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
                     + '</div>'
@@ -216,19 +212,15 @@ function consultaSolicitudesPendientesAlumno(matricula) {
         dataType: 'json',
 
         success: function (response) {
-            // Maneja la respuesta del servidor aquí
-            // response['motivoAcademico']
-
             var motivoSolicitud = response['motivoAcademico'];
-            console.log(motivoSolicitud[0]);
-            console.log(motivoSolicitud[1]);
-
+            var idSolicitud = response['solicitudID'];
             // Recorrer el arreglo en JavaScript
             var historialSolicitudes = "";
             for (var i = 0; i < motivoSolicitud.length; i++) {
+
                 historialSolicitudes = historialSolicitudes + '<div class="row">'
                     + '<div class="col">'
-                    + '<div id="cardSolicitudAlumno" class="card paddingCard cifras">'
+                    + '<div id="cardSolicitudAlumno' + i + '" onclick="pantallaSolicitudAlumno(' + idSolicitud[i] + ')" class="card paddingCard cifras">'
                     + '<div class="card-body leftCard">'
                     + '<img src="assets/img/icono_documento.png" width="30px">' + motivoSolicitud[i]
                     + '</div>'

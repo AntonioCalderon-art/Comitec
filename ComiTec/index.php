@@ -34,6 +34,7 @@ if (isset($_SESSION['sesion_iniciada'])) {
 
     <link rel="stylesheet" href="assets/css/estilos.css">
     <script src="assets/js/eventos.js"></script>
+    <script src="assets/js/eventos_index.js"></script>
 </head>
 
 <body>
@@ -51,98 +52,34 @@ if (isset($_SESSION['sesion_iniciada'])) {
     <div class="container text-center">
         <div class="row">
             <div class="col">
-                <div id="CardRevisados" class="sizeCard card cifras text-bg-success">
+                <div id="CardAutorizados" class="sizeCard card cifras text-bg-success">
                     <div class="card-body">
-                        <h5 class="card-title">REVISADOS</h5>
+                        <h5 class="card-title">AUTORIZADOS</h5>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <div id="CardRegresados" class="sizeCard card cifras text-bg-secondary">
+                <div id="CardPendientes" class="sizeCard card cifras text-bg-secondary">
                     <div class="card-body">
-                        <h5 class="card-title">REGRESADOS</h5>
+                        <h5 class="card-title">Pendientes</h5>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <div id="CardSinRevisar" class="sizeCard card cifras text-bg-primary">
+                <div id="CardRechazados" class="sizeCard card cifras text-bg-danger">
                     <div class="card-body">
-                        <h5 class="card-title">SIN REVISAR</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div id="CardPorFirmar" class="sizeCard card cifras text-bg-danger">
-                    <div class="card-body">
-                        <h5 class="card-title">POR FIRMAR</h5>
+                        <h5 class="card-title">Rechazados</h5>
                     </div>
                 </div>
             </div>
         </div>
 
         <div style="padding-top: 20px;">
-            <p id="lblTipoPeticion" style="text-align: left;" class="fs-2">Todos</p>
+            <p id="lblTipoSolicitud" style="text-align: left;" class="fs-2">Historial de peticiones</p>
         </div>
 
         <div class="container text-center">
-            <div class="row">
-                <div class="col">
-                    <div class="card paddingCard">
-                        <div class="card-body leftCard">
-                            <img src="assets/img/icono_documento.png" width="30px><h6 class=" card-title">Solicitud de
-                            Antonio</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card paddingCard">
-                        <div class="card-body leftCard">
-                            <img src="assets/img/icono_documento.png" width="30px><h6 class=" card-title">Solicitud de
-                            Jaime</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card paddingCard">
-                        <div class="card-body leftCard">
-                            <img src="assets/img/icono_documento.png" width="30px><h6 class=" card-title">Solicitud de
-                            Paloma</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card paddingCard">
-                        <div class="card-body leftCard">
-                            <img src="assets/img/icono_documento.png" width="30px><h6 class=" card-title">Solicitud de
-                            José</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card paddingCard">
-                        <div class="card-body leftCard">
-                            <img src="assets/img/icono_documento.png" width="30px><h6 class=" card-title">Prueba</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card paddingCard">
-                        <div class="card-body leftCard">
-                            <img src="assets/img/icono_documento.png" width="30px><h6 class=" card-title">Prueba</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="historialSolicitudesAdmin"></div>
         </div>
 
 </body>
