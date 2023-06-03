@@ -1,16 +1,9 @@
 $(document).ready(function () {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    // Obtener un parámetro específico
-    const idSolicitud = urlParams.get('idSolicitud');
-    console.log(idSolicitud); // Imprime "valor1"
-
-    llenaInfoSolicitud(idSolicitud);
     $("#btnRegresarAlumnoPrincipal").on("click", regresarAlumnoPrincipal);
 });
 
 function regresarAlumnoPrincipal() {
-    location.href = 'principal_alumno.html';
+    location.href = 'principal_alumno.php';
 }
 
 function llenaInfoSolicitud(idSolicitud) {

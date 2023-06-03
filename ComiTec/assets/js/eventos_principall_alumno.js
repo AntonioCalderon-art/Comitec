@@ -5,7 +5,6 @@ $(document).ready(function () {
 
     var noControl = $('#txtNoControl').val();
     var nombre = $('#lblUsuarioLogueado').text();
-    debugger;
     consultaSolicitudesAlumno(noControl);
     $("#lblUsuarioLogueado").html(nombre);
     $("#btnCerrarSesion").on("click", cerrarSesion);
@@ -41,7 +40,7 @@ function poneLblRechazados(matricula) {
 }
 
 function redireccionNuevaSolicitud() {
-    location.href = 'agendar_cita.html';
+    location.href = 'agendar_cita.php';
 }
 
 // function cerrarSesion() {
@@ -87,22 +86,16 @@ function consultaSolicitudesAlumno(matricula) {
     $.ajax({
         url: 'assets/php/funciones.php',
         type: 'GET',
-        data: datos, // Parámetros a enviar al archivo PHP
+        data: datos,
         dataType: 'json',
 
         success: function (response) {
-            // Maneja la respuesta del servidor aquí
-            // response['motivoAcademico']
-
             var motivoSolicitud = response['motivoAcademico'];
             var idSolicitud = response['solicitudID'];
-            console.log(idSolicitud);
 
             // Recorrer el arreglo en JavaScript
             var historialSolicitudes = "";
             for (var i = 0; i < motivoSolicitud.length; i++) {
-                console.log(motivoSolicitud[i]);
-                console.log(idSolicitud[i]);
 
                 historialSolicitudes = historialSolicitudes + '<div class="row">'
                     + '<div class="col">'
