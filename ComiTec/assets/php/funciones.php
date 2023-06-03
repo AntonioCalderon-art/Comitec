@@ -110,7 +110,6 @@ if($opcion == 4){
     
     $sql = "SELECT solicitudID,motivoAcademico FROM Solicitud WHERE alumno_NoControl = ".$matricula." AND estatusSolicitudID = 2";
     $stmt = sqlsrv_query( $conn, $sql );
-    echo $sql;
 
     if (sqlsrv_has_rows($stmt)) {
         while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)) {
@@ -162,6 +161,7 @@ if($opcion == 5){
 }
 
 if($opcion == 6){
+
     $idSolicitud = $_GET['idSolicitud'];
     $serverName = "ANTONIOCALDERON\SQL2014";
     $connectionInfo = array( "Database"=>"Comitec", "UID"=>"tec", "PWD"=>"123");
@@ -169,7 +169,7 @@ if($opcion == 6){
     
     $sql = "SELECT alumno_NoControl, b.nombre, b.apPaterno, b.apMaterno, b.CorreoAlumno, c.nombreCarrera , b.semestre, a.motivoAcademico, e.nombreStatus
     from Solicitud as a, Alumno as b, Carrera as c, estatusSolicitud as e
-    WHERE b.NoControl = a.alumno_NoControl and b.carreraID = c.carreraID and a.estatusSolicitudID = e.estatusID AND A.solicitudID=".$idSolicitud;
+    WHERE b.NoControl = a.alumno_NoControl and b.carreraID = c.carreraID and a.estatusSolicitudID = e.estatusID AND a.solicitudID = ".$idSolicitud;
     $stmt = sqlsrv_query( $conn, $sql );
     
     if (sqlsrv_has_rows($stmt)) {
@@ -205,7 +205,117 @@ if($opcion == 6){
     
     sqlsrv_free_stmt( $stmt);
     echo json_encode($response);
+
 }
+
+if($opcion == 7){
+
+    $numControl = $_GET['numeroControl'];
+    $serverName = "ANTONIOCALDERON\SQL2014";
+    $connectionInfo = array( "Database"=>"Comitec", "UID"=>"tec", "PWD"=>"123");
+    $conn = sqlsrv_connect( $serverName, $connectionInfo);
+    
+    $sql = "SELECT b.NoControl, b.nombre, b.apPaterno, b.apMaterno, b.CorreoAlumno, c.nombreCarrera , b.semestre 
+    FROM Alumno as b, Carrera as c
+    WHERE b.carreraID = c.carreraID AND b.NoControl = ".$numControl;
+    $stmt = sqlsrv_query( $conn, $sql );
+    
+    if (sqlsrv_has_rows($stmt)) {
+        while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)) {
+            $numeroControl[] = $row['NoControl'];
+            $nombre[] = $row['nombre'].' '.$row['apPaterno'].' '.$row['apMaterno'];
+            $CorreoAlumno[] = $row['CorreoAlumno'];
+            $nombreCarrera[] = $row['nombreCarrera'];
+            $semestre[] = $row['semestre'];
+        }
+    } else {
+        $numeroControl['numeroControl'][0] = 'Vacio';
+        $nombre['nombre'][0] = 'Vacio';
+        $CorreoAlumno['CorreoAlumno'][0] = 'Vacio';
+        $nombreCarrera['nombreCarrera'][0] = 'Vacio';
+        $semestre['semestre'][0] = 'Vacio';
+    }
+
+    $response = array(
+        'mensaje' => true,
+        'numeroControl' => $numeroControl,
+        'nombre' => $nombre,
+        'CorreoAlumno' => $CorreoAlumno,
+        'nombreCarrera' => $nombreCarrera,
+        'semestre' => $semestre,
+    );
+    
+    sqlsrv_free_stmt( $stmt);
+    echo json_encode($response);
+
+}
+
+if($opcion == 8){
+
+    $numControl = $_GET['numeroControl'];
+    $fecha = obtenerFecha();
+    $motivoPersonal = $_GET['movitoSolicitudPersonal'];
+    $motivoAcademico = $_GET['movitoSolicitudAcademico'];
+    $estatus = $_GET['estatus'];
+
+    $serverName = "ANTONIOCALDERON\SQL2014";
+    $connectionInfo = array( "Database"=>"Comitec", "UID"=>"tec", "PWD"=>"123");
+    $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+    if ($conn === false) {
+        $response = array(
+            'mensaje' => false,
+            'error' => sqlsrv_errors()
+        );
+    } else {
+        //$sql = "INSERT INTO solicitud(alumno_NoControl, trabajador_Matricula, firmaTrabajador, fechaSolicitud, motivoPersonal, motivoAcademico, estatusSolicitudID, Observaciones) VALUES (?, 1, 0, ?, ?, ?, ?, '')";
+        //$params = array($numControl, $fecha, $motivoPersonal, $motivoAcademico, $estatus);
+        //$stmt = sqlsrv_prepare($conn, $sql, $params);
+        $sql = "INSERT INTO solicitud(alumno_NoControl, trabajador_Matricula, firmaTrabajador, fechaSolicitud, motivoPersonal, motivoAcademico, estatusSolicitudID, Observaciones) VALUES ($numControl, 1, 0, $fecha, $motivoPersonal, $motivoAcademico, $estatus, '')";
+        try {
+            $rowCount = $conn->exec($sql);
+        } catch (PDOException $e) {
+            echo "Error al ejecutar la sentencia: " . $e->getMessage();
+        }
+        $stmt = sqlsrv_query($conn, $sql);
+
+        if ($stmt === false) {
+            $response = array(
+                'mensaje' => false,
+                'error' => sqlsrv_errors()
+            );
+        } else {
+            // $result = sqlsrv_execute($stmt);
+
+            $response = array(
+                'mensaje' => true
+            );
+
+            // if ($result === false) {
+            //     $response = array(
+            //         'mensaje' => false,
+            //         'error' => sqlsrv_errors()
+            //     );
+            // } else {
+            //     $response = array(
+            //         'mensaje' => true
+            //     );
+            // }
+        }
+        
+        sqlsrv_free_stmt($stmt);
+    }
+
+    echo json_encode($response);
+
+}
+
+function obtenerFecha(){
+    date_default_timezone_set('America/Mexico_City');
+    $fecha = date("Y-m-d");
+    return $fecha;
+}
+
 if($opcion == "cerrarSesion"){
     session_destroy();
 
@@ -215,4 +325,5 @@ if($opcion == "cerrarSesion"){
     
     echo json_encode($response);
 }
+
 ?>

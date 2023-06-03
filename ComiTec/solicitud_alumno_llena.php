@@ -70,31 +70,36 @@ if (isset($_SESSION['sesion_iniciada']) && $_SESSION['sesion_iniciada']) {
             
                                 <form>
                                     <div class="row g-3">
-                                        <div class="col-auto" style="padding-top: 20px;">
+                                        <div class="col-auto" style="padding-top: 20px; text-align: left;">
+                                        <label>Número de control</label>
                                             <input disabled type="text" class="form-control" id="txtNumControl" placeholder="Número de control">
                                         </div>
-                                        <div class="col-auto" style="padding-top: 20px;">
-                                            <input disabled type="text" style="padding-right: 317px;" id="txtNombreCompleto" class="form-control pr-3"
+                                        <div class="col-auto" style="width: 450px; padding-top: 20px; text-align: left;">
+                                        <label>Nombre completo</label>
+                                            <input disabled type="text" id="txtNombreCompleto" class="form-control pr-3"
                                                 placeholder="Nombre completo">
                                         </div>
                                     </div>
+
                                     <div class="row">
-                                        <div class="input-group" style="padding-top: 20px;">
+                                        <div class="col-auto" style="width: 450px; padding-top: 20px; text-align: left;">
+                                            <label>Correo institucional</label>
                                             <input disabled type="email" class="form-control" id="txtCorreo" placeholder="Correo institucional">
                                         </div>
                                     </div>
             
                                     <div class="row g-2">
-                                        <div class="col-auto" style="padding-top: 20px;">
+                                        <div class="col-auto" style="padding-top: 20px; text-align: left;">
+                                            <label>Carrera</label>
                                             <input disabled type="text" style="padding-right: 200px;" class="form-control pr-3" id="txtCarrera" placeholder="Carrera">
                                         </div>
                                         <div class="col-auto" style="padding-top: 20px; text-align: left;">
+                                            <label>Semestre</label>
                                             <input disabled type="text" style="width: 50%;" maxlength="2" class="form-control pr-3" id="txtSemestre" placeholder="Semestre">
                                         </div>
-                                        <div class="row">
-                                            <div class="input-group" style="padding-top: 20px;">
-                                                <input disabled type="text" class="form-control" id="txtMotivo" placeholder="Motivo">
-                                            </div>
+                                        <div class="col-auto" style="width: 450px; padding-top: 20px; text-align: left">
+                                            <label>Motivo</label>
+                                            <input disabled type="text" class="form-control" id="txtMotivo" placeholder="Motivo">
                                         </div>
                                     </div>
                                     
@@ -108,13 +113,14 @@ if (isset($_SESSION['sesion_iniciada']) && $_SESSION['sesion_iniciada']) {
                                       </div>
 
                                       <div class="col-auto" style="padding-top: 20px;">
-                                        <textarea disabled name="" id="" cols="300" rows="10" style="width: 500px;" placeholder="Comentarios..."></textarea>
+                                        <textarea disabled id="txtComentarios" cols="300" rows="10" style="width: 500px;" placeholder="Comentarios..."></textarea>
                                     </div>
                                 </form>
             
-                                <div style="margin: 30px;">
+                                <div style="margin: 30px; text-align: left">
+                                    <label>Estatus</label>
                                     <input disabled type="text" id="txtEstatus" style="padding-right: 317px;" class="form-control pr-3"
-                                    placeholder="Estatus: Autorizada">
+                                    placeholder="Estatus">
                                 </div>
                             </div>
                         </div>

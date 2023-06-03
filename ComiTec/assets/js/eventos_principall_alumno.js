@@ -8,35 +8,39 @@ $(document).ready(function () {
     consultaSolicitudesAlumno(noControl);
     $("#lblUsuarioLogueado").html(nombre);
     $("#btnCerrarSesion").on("click", cerrarSesion);
-    $("#CardAutorizados").on("click", poneLblAutorizados(noControl));
-    $("#CardPendientes").on("click", poneLblPendientes(noControl));
-    $("#CardRechazados").on("click", poneLblRechazados(noControl));
+    $("#CardAutorizados").on("click", poneLblAutorizados);
+    $("#CardPendientes").on("click", poneLblPendientes);
+    $("#CardRechazados").on("click", poneLblRechazados);
     $("#divNuevaSolicitud").on("click", redireccionNuevaSolicitud);
     $("#btnEnviarSolicitud").on("click", enviarSolicitud);
     $("#btnRegresarAlumno").on("click", regresarAlumnoPrincipal);
 });
 
+
 function pantallaSolicitudAlumno(idSolicitud) {
-    location.href = 'solicitud_alumno_llena.html?idSolicitud=' + idSolicitud;
+    location.href = 'solicitud_alumno_llena.php?idSolicitud=' + idSolicitud;
 }
 
 function regresarAlumnoPrincipal() {
     location.href = 'principal_alumno.html';
 }
 
-function poneLblAutorizados(matricula) {
+function poneLblAutorizados() {
+    var noControlBuscar = $('#txtNoControl').val();
     $("#lblTipoSolicitud").html("Solicitudes autorizadas");
-    consultaSolicitudesAutorizadasAlumno(matricula);
+    consultaSolicitudesAutorizadasAlumno(noControlBuscar);
 }
 
-function poneLblPendientes(matricula) {
+function poneLblPendientes() {
+    var noControlBuscar = $('#txtNoControl').val();
     $("#lblTipoSolicitud").html("Solicitudes pendientes");
-    consultaSolicitudesPendientesAlumno(matricula);
+    consultaSolicitudesPendientesAlumno(noControlBuscar);
 }
 
-function poneLblRechazados(matricula) {
+function poneLblRechazados() {
+    var noControlBuscar = $('#txtNoControl').val();
     $("#lblTipoSolicitud").html("Solicitudes rechazadas");
-    consultaSolicitudesRechazadasAlumno(matricula);
+    consultaSolicitudesRechazadasAlumno(noControlBuscar);
 }
 
 function redireccionNuevaSolicitud() {
@@ -92,7 +96,6 @@ function consultaSolicitudesAlumno(matricula) {
         success: function (response) {
             var motivoSolicitud = response['motivoAcademico'];
             var idSolicitud = response['solicitudID'];
-
             // Recorrer el arreglo en JavaScript
             var historialSolicitudes = "";
             for (var i = 0; i < motivoSolicitud.length; i++) {
@@ -108,6 +111,7 @@ function consultaSolicitudesAlumno(matricula) {
                     + '</div>';
             }
             $("#historialSolicitudes").html(historialSolicitudes);
+            
         },
 
         error: function (xhr, status, error) {
@@ -134,8 +138,6 @@ function consultaSolicitudesAutorizadasAlumno(matricula) {
             // response['motivoAcademico']
 
             var motivoSolicitud = response['motivoAcademico'];
-            console.log(motivoSolicitud[0]);
-            console.log(motivoSolicitud[1]);
 
             // Recorrer el arreglo en JavaScript
             var historialSolicitudes = "";
@@ -177,8 +179,6 @@ function consultaSolicitudesRechazadasAlumno(matricula) {
             // response['motivoAcademico']
 
             var motivoSolicitud = response['motivoAcademico'];
-            console.log(motivoSolicitud[0]);
-            console.log(motivoSolicitud[1]);
 
             // Recorrer el arreglo en JavaScript
             var historialSolicitudes = "";

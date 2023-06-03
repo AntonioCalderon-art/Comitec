@@ -10,7 +10,7 @@ $(document).ready(function () {
 });
 
 function regresarAlumnoPrincipal() {
-    location.href = 'principal_alumno.html';
+    location.href = 'principal_alumno.php';
 }
 
 function llenaInfoSolicitud(idSolicitud) {
@@ -27,13 +27,15 @@ function llenaInfoSolicitud(idSolicitud) {
 
         success: function (response) {
             //var motivoSolicitud = response['motivoAcademico'];
-            $("#txtNumControl").val(+response['numeroControl']);
+            console.log(response);
+            $("#txtNumControl").val(response['numeroControl']);
             $("#txtNombreCompleto").val(response['nombre']);
             $("#txtCorreo").val(response['CorreoAlumno']);
             $("#txtCarrera").val(response['nombreCarrera']);
-            $("#txtSemestre").val("Sem: "+response['semestre']);
-            $("#txtMotivo").val("Motivo: "+response['motivoAcademico']);
-            $("#txtEstatus").val("Estatus: "+response['nombreStatus']);
+            $("#txtSemestre").val(response['semestre']);
+            $("#txtMotivo").val(response['motivoAcademico']);
+            $("#txtEstatus").val(response['nombreStatus']);
+            $("#txtComentarios").val(response['Observaciones']);
         },
 
         error: function (xhr, status, error) {
