@@ -22,7 +22,7 @@ $(document).ready(function () {
 });
 
 function regresarAlumnoPrincipal() {
-    location.href = 'principal_alumno.html';
+    location.href = 'Menu_Acceso_Alumno.html';
 }
 function botonPerfil_Docente() {
     location.href = 'Perfil_Docente.html';
