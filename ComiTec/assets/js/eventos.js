@@ -79,7 +79,7 @@ function iniciarSesion() {
 
     if (perfil == "1") {
         consultarUsuario('1');
-        location.href = 'Menu_Acceso_Alumno';
+        location.href = 'Menu_Acceso_Alumno.html';
     } else if (perfil == "2") {
         location.href = 'Menu_Acceso_Docente.html';
     } else {
